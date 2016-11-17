@@ -21,13 +21,13 @@ describe("Read Book Data", function() {
 
     describe("Json is valid", ()=> {
       it("should check that uploaded file content is a valid json file", function() {
-        expect(this.inverted.isValidJson(book)).toBeTruthy;
+        expect(this.inverted.isValidJson(book)).toBeTruthy();
       });
     });
 
     describe("Json not empty", ()=> {
       it("should see that the uploaded file is not empty", function() {
-        expect(this.inverted.createIndex([])).toBe("Empty File");
+        expect(this.inverted.isValidJson([])).toBeFalsy();
       });
     });
 
