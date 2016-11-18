@@ -1,0 +1,27 @@
+{
+  "name": "inverted-index",
+  "version": "1.0.0",
+  "description": "inverted index",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-msosan/inverted-index.git"
+  },
+  "author": "moyosore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-msosan/inverted-index/issues"
+  },
+  "homepage": "https://github.com/andela-msosan/inverted-index#readme",
+  "dependencies": {
+    "eslint": "^3.10.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0"
+  }
+}

@@ -9,7 +9,7 @@ class InvertedIndex {
    */
   constructor() {
     this.indexes = {};
-    }
+  }
 
   /**
    * Check if a json file is valid
@@ -18,14 +18,14 @@ class InvertedIndex {
    * @return {Boolean}
    */
   isValidJson(jsonArray) {
-    if (typeof jsonArray !== 'object'||jsonArray.length === 0) {
+    if (typeof jsonArray !== 'object' || jsonArray.length === 0) {
       return false;
-      }
-    jsonArray.forEach( (item)=> {
-      if (!(item.hasOwnProperty('title') && item.hasOwnProperty('text')) ) {
-        return false;
-        }
-      });
-      return true;
     }
+    jsonArray.forEach((item) => {
+      if (!(item.hasOwnProperty('title') && item.hasOwnProperty('text'))) {
+        return false;
+      }
+    });
+    return true;
+  }
 }
