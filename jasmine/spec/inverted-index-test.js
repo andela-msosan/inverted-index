@@ -42,7 +42,7 @@ describe("Populate Data", function() {
 
     describe("Ensures that index is created once json file is read", ()=> {
       it("should return an object once index is created", function() {
-        expect(typeof this.inverted.createIndex(book)).toBe("object");
+        expect(typeof this.inverted.getIndex()).toBe("object");
       });
     });
     
