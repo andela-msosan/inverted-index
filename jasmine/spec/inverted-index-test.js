@@ -1,5 +1,3 @@
-'use strict';
-
 const book = [
   {
     "title": "Alice in Wonderland",
@@ -38,8 +36,7 @@ describe("Inverted Index", ()=> {
   describe("Search Index", ()=> {
     it("should return an arrray of objects indexes of the searched words", ()=> {
       expect(inverted.searchIndex("of")).toEqual([[0,1]]);
-      expect(inverted.searchIndex("alice powerful is")).toEqual([[0],[1]]);
+      expect(inverted.searchIndex("alice powerful")).toEqual([[0],[1]]);
     });
   });
-
-})
+});
