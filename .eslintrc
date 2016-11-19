@@ -15,7 +15,7 @@
     "no-param-reassign": 0,
     "class-methods-use-this": 0,
     "no-prototype-builtins": 0,
-    "arrow-body-style": ["error", "always"],
+    "arrow-body-style": ["error", "as-needed"],
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],

@@ -57,8 +57,6 @@ gulp.task('testWatch', () => {
   gulp.watch(paths.testFiles, ['testReload']);
 });
 
-
-
 gulp.task('testReload', () => {
   gulp.src(paths.specRunner)
     .pipe(connect.reload());
