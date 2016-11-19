@@ -44,66 +44,73 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const InvertedIndex = __webpack_require__(1);
+	'use strict';
 
-	const book = [
-	  {
-	    title: 'Alice in Wonderland',
-	    text: 'Alice falls into a rabbit hole and enters a world full of imagination.'
-	  },
+	var InvertedIndex = __webpack_require__(1);
 
-	  {
-	    title: 'The Lord of the Rings: The Fellowship of the Ring.',
-	    text: 'An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring.'
-	  }
-	];
+	var book = [{
+	  title: 'Alice in Wonderland',
+	  text: 'Alice falls into a rabbit hole and enters a world full of imagination.'
+	}, {
+	  title: 'The Lord of the Rings: The Fellowship of the Ring.',
+	  text: 'An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring.'
+	}];
 
-	describe('Inverted Index', () => {
-	  const inverted = new InvertedIndex();
+	describe('Inverted Index', function () {
+	  var inverted = new InvertedIndex();
 	  inverted.createIndex(book);
 
-	  describe('Read Book Data', () => {
-	    it('should check that uploaded file content is a valid json file', () => {
+	  describe('Read Book Data', function () {
+	    it('should check that uploaded file content is a valid json file', function () {
 	      expect(inverted.isValidJson(book)).toBeTruthy();
 	    });
 
-	    it('should read json file and assert it is not empty', () => {
+	    it('should read json file and assert it is not empty', function () {
 	      expect(inverted.isValidJson([])).toBeFalsy();
 	    });
 	  });
 
-	  describe('Populate Index', () => {
-	    it('should verify that index has been created', () => {
+	  describe('Populate Index', function () {
+	    it('should verify that index has been created', function () {
 	      expect(Object.keys(inverted.indexes).length).toBeGreaterThan(0);
 	    });
-	    it('should check that index maps the string to the correct objects in json array', () => {
+	    it('should check that index maps the string to the correct objects in json array', function () {
 	      expect(inverted.getIndex().alice).toEqual([0]);
 	    });
 	  });
 
-	  describe('Search Index', () => {
-	    it('should return an arrray of objects indexes of the searched words', () => {
+	  describe('Search Index', function () {
+	    it('should return an arrray of objects indexes of the searched words', function () {
 	      expect(inverted.searchIndex('of')).toEqual([[0, 1]]);
 	      expect(inverted.searchIndex('alice powerful')).toEqual([[0], [1]]);
 	    });
 	  });
 	});
 
-
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
+
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/**
 	 * inverted index class
 	 * @class
 	 */
-	class InvertedIndex {
+	var InvertedIndex = function () {
 	  /**
 	   * class constructor
 	   * @constructor
 	   */
-	  constructor() {
+	  function InvertedIndex() {
+	    _classCallCheck(this, InvertedIndex);
+
 	    this.indexes = {};
 	  }
 
@@ -113,84 +120,104 @@
 	   * @param {Object} jsonArray Array of json objects
 	   * @return {Boolean} True or false if json file is valid
 	   */
-	  isValidJson(jsonArray) {
-	    if (typeof jsonArray !== 'object' || jsonArray.length === 0) {
-	      return false;
-	    }
-	    jsonArray.forEach((item) => {
-	      if (!(item.hasOwnProperty('title') && item.hasOwnProperty('text'))) {
+
+
+	  _createClass(InvertedIndex, [{
+	    key: 'isValidJson',
+	    value: function isValidJson(jsonArray) {
+	      if ((typeof jsonArray === 'undefined' ? 'undefined' : _typeof(jsonArray)) !== 'object' || jsonArray.length === 0) {
 	        return false;
 	      }
-	    });
-	    return true;
-	  }
+	      jsonArray.forEach(function (item) {
+	        if (!(item.hasOwnProperty('title') && item.hasOwnProperty('text'))) {
+	          return false;
+	        }
+	      });
+	      return true;
+	    }
 
-	  /**
-	   * getToken
-	   * @param {String} text strings of texts
-	   * @return {Array} An array of splitted texts
-	   */
-	  getToken(text) {
-	    const invalid = /[^\w\s]/g;
-	    return text.replace(invalid, ' ').toLowerCase()
-	      .split(' ')
-	      .filter(item => Boolean(item));
-	  }
+	    /**
+	     * getToken
+	     * @param {String} text strings of texts
+	     * @return {Array} An array of splitted texts
+	     */
+
+	  }, {
+	    key: 'getToken',
+	    value: function getToken(text) {
+	      var invalid = /[^\w\s]/g;
+	      return text.replace(invalid, ' ').toLowerCase().split(' ').filter(function (item) {
+	        return Boolean(item);
+	      });
+	    }
 
 	    /**
 	     * createIndex
 	     * @param {JSON} fileContent Uploaded json file content
 	     * @return {Object} words in file with thier index
 	     */
-	  createIndex(fileContent) {
-	    if (this.isValidJson(fileContent)) {
-	      fileContent.forEach((doc, docIndex) => {
-	        const newString = `${doc.title} ${doc.text}`;
-	        const tokenArray = this.getToken(newString);
-	        tokenArray.forEach((token) => {
-	          if (token in this.indexes) {
-	            if (this.indexes[token].indexOf(docIndex) === -1) {
-	              this.indexes[token].push(docIndex);
+
+	  }, {
+	    key: 'createIndex',
+	    value: function createIndex(fileContent) {
+	      var _this = this;
+
+	      if (this.isValidJson(fileContent)) {
+	        fileContent.forEach(function (doc, docIndex) {
+	          var newString = doc.title + ' ' + doc.text;
+	          var tokenArray = _this.getToken(newString);
+	          tokenArray.forEach(function (token) {
+	            if (token in _this.indexes) {
+	              if (_this.indexes[token].indexOf(docIndex) === -1) {
+	                _this.indexes[token].push(docIndex);
+	              }
+	            } else {
+	              _this.indexes[token] = [docIndex];
 	            }
-	          } else {
-	            this.indexes[token] = [docIndex];
-	          }
+	          });
 	        });
-	      });
+	      }
 	    }
-	  }
 
 	    /**
 	     * getIndex
 	     * @return {Object} An object of each word and their indexex
 	     */
-	  getIndex() {
-	    return this.indexes;
-	  }
+
+	  }, {
+	    key: 'getIndex',
+	    value: function getIndex() {
+	      return this.indexes;
+	    }
 
 	    /**
 	     * searchIndex
 	     * @param {String} word Word to be searched in the index
 	     * @return {Array} description
 	     */
-	  searchIndex(word) {
-	    const result = [];
-	    const cleanWord = this.getToken(word);
-	    cleanWord.forEach((text) => {
-	      if (this.indexes.hasOwnProperty(text)
-	         ) {
-	        result.push(this.indexes[text]);
-	      } else {
-	        return ('No result found');
-	      }
-	    });
-	    return result;
-	  }
 
-	}
+	  }, {
+	    key: 'searchIndex',
+	    value: function searchIndex(word) {
+	      var _this2 = this;
+
+	      var result = [];
+	      var cleanWord = this.getToken(word);
+	      cleanWord.forEach(function (text) {
+	        if (_this2.indexes.hasOwnProperty(text)) {
+	          result.push(_this2.indexes[text]);
+	        } else {
+	          return 'No result found';
+	        }
+	      });
+	      return result;
+	    }
+	  }]);
+
+	  return InvertedIndex;
+	}();
 
 	module.exports = InvertedIndex;
-
 
 /***/ }
 /******/ ]);

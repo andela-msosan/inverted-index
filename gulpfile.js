@@ -67,9 +67,9 @@ gulp.task('testReload', () => {
 });
 
 gulp.task('webpack', () => {
-  return gulp.src('jasmine/spec/inverted-index-test.js')
+  return gulp.src('./jasmine/spec/inverted-index-test.js')
   .pipe(webpack(require('./webpack.config.js')))
-  .pipe(gulp.dest(''));
+  .pipe(gulp.dest('./jasmine/spec/'));
 });
 
 gulp.task('babelify', () => {
