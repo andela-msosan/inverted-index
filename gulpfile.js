@@ -2,6 +2,9 @@
 const gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   spawn = require('child_process').spawn,
+  webpack = require('webpack-stream'),
+  fs = require('fs'),
+  browserify = require('browserify'),
   connect = require('gulp-connect');
 
 const paths = {
@@ -61,6 +64,19 @@ gulp.task('testWatch', () => {
 gulp.task('testReload', () => {
   gulp.src(paths.specRunner)
     .pipe(connect.reload());
+});
+
+gulp.task('webpack', () => {
+  return gulp.src('jasmine/spec/inverted-index-test.js')
+  .pipe(webpack(require('./webpack.config.js')))
+  .pipe(gulp.dest(''));
+});
+
+gulp.task('babelify', () => {
+  browserify('src/inverted-index.js')
+  .transform('babelify', { presets: ['es2015'] })
+  .bundle()
+  .pipe(fs.createWriteStream('src/inverted-bundled.js'));
 });
 
 gulp.task('default', ['reloadServer', 'testWatch', 'testReload', 'serve', 'watch']);
