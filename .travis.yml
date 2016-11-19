@@ -3,3 +3,6 @@ node_js:
   - 6
   - 5
   - 7
+before_script:
+  - "npm i -g jasmine-node"
+  - "npm i -g jasmine"
