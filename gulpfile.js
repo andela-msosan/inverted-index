@@ -1,7 +1,10 @@
 
 const gulp = require('gulp'),
   eslint = require('gulp-eslint'),
-  jasmine = require('gulp-jasmine'),
+  spawn = require('child_process').spawn,
+  webpack = require('webpack-stream'),
+  fs = require('fs'),
+  browserify = require('browserify'),
   connect = require('gulp-connect');
 
 const paths = {
@@ -49,8 +52,9 @@ gulp.task('reloadServer', () => {
 
 // test
 gulp.task('test', () => {
-  return gulp.src(paths.testFiles)
-      .pipe(jasmine());
+  spawn('node_modules/karma/bin/karma', ['start', '--single-run'], {
+    stdio: 'inherit'
+  }).on('close', process.exit);
 });
 
 gulp.task('testWatch', () => {
@@ -60,6 +64,19 @@ gulp.task('testWatch', () => {
 gulp.task('testReload', () => {
   gulp.src(paths.specRunner)
     .pipe(connect.reload());
+});
+
+gulp.task('webpack', () => {
+  return gulp.src('./jasmine/spec/inverted-index-test.js')
+  .pipe(webpack(require('./webpack.config.js')))
+  .pipe(gulp.dest('./jasmine/spec/'));
+});
+
+gulp.task('babelify', () => {
+  browserify('src/inverted-index.js')
+  .transform('babelify', { presets: ['es2015'] })
+  .bundle()
+  .pipe(fs.createWriteStream('src/inverted-bundled.js'));
 });
 
 gulp.task('default', ['reloadServer', 'testWatch', 'testReload', 'serve', 'watch']);
