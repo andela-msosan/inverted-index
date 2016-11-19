@@ -1,7 +1,7 @@
 
 const gulp = require('gulp'),
   eslint = require('gulp-eslint'),
-  jasmine = require('gulp-jasmine'),
+  spawn = require('child_process').spawn,
   connect = require('gulp-connect');
 
 const paths = {
@@ -49,8 +49,9 @@ gulp.task('reloadServer', () => {
 
 // test
 gulp.task('test', () => {
-  return gulp.src(paths.testFiles)
-      .pipe(jasmine());
+  spawn('node_modules/karma/bin/karma', ['start', '--single-run'], {
+    stdio: 'inherit'
+  }).on('close', process.exit);
 });
 
 gulp.task('testWatch', () => {
