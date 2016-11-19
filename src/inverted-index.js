@@ -15,7 +15,7 @@ class InvertedIndex {
    * Check if a json file is valid
    * @function isValidJson
    * @param {Object} jsonArray Array of json objects
-   * @return {Boolean}
+   * @return {Boolean} True or false if json file is valid
    */
   isValidJson(jsonArray) {
     if (typeof jsonArray !== 'object' || jsonArray.length === 0) {

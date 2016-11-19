@@ -4,7 +4,8 @@
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true
+    "mocha": true,
+    "jasmine": true
   },
   "rules": {
     "one-var": 0,
@@ -14,6 +15,7 @@
     "no-param-reassign": 0,
     "class-methods-use-this": 0,
     "no-prototype-builtins": 0,
+    "arrow-body-style": ["error", "as-needed"],
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
