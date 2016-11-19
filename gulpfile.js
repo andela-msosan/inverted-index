@@ -2,8 +2,7 @@
 const gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   jasmine = require('gulp-jasmine'),
-  connect = require('gulp-connect'),
-  run = require('gulp-run');
+  connect = require('gulp-connect');
 
 const paths = {
   jsFiles: ['./src/inverted-index.js'],
