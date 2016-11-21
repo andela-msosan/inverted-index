@@ -37,8 +37,8 @@ describe('Inverted Index', () => {
 
   describe('Search Index', () => {
     it('should return an arrray of objects indexes of the searched words', () => {
-      expect(inverted.searchIndex('of')).toEqual([[0, 1]]);
-      expect(inverted.searchIndex('alice powerful')).toEqual([[0], [1]]);
+      expect(inverted.searchIndex('of')).toEqual({ of: [0, 1] });
+      expect(inverted.searchIndex('alice powerful')).toEqual({ alice: [0], powerful: [1] });
     });
   });
 });

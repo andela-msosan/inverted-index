@@ -78,14 +78,12 @@ class InvertedIndex {
      * @return {Array} description
      */
   searchIndex(word) {
-    const result = [];
+    const result = {};
     const cleanWord = this.getToken(word);
     cleanWord.forEach((text) => {
       if (this.indexes.hasOwnProperty(text)
          ) {
-        result.push(this.indexes[text]);
-      } else {
-        return ('No result found');
+        result[text] = this.indexes[text];
       }
     });
     return result;

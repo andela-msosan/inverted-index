@@ -109,13 +109,11 @@ var InvertedIndex = function () {
     value: function searchIndex(word) {
       var _this2 = this;
 
-      var result = [];
+      var result = {};
       var cleanWord = this.getToken(word);
       cleanWord.forEach(function (text) {
         if (_this2.indexes.hasOwnProperty(text)) {
-          result.push(_this2.indexes[text]);
-        } else {
-          return 'No result found';
+          result[text] = _this2.indexes[text];
         }
       });
       return result;
