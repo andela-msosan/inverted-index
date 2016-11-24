@@ -1,5 +1,3 @@
-const InvertedIndex = require('../../src/inverted-index');
-
 const book = [
   {
     title: 'Alice in Wonderland',
