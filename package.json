@@ -29,7 +29,8 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "browserify": "^13.1.1",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+     "webpack": "^1.13.3"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -50,7 +51,6 @@
     "jshint": "^2.9.4",
     "jshint-loader": "^0.8.3",
     "karma-phantomjs-launcher": "^1.0.2",
-    "node-libs-browser": "^1.0.0",
-    "webpack": "^1.13.3"
+    "node-libs-browser": "^1.0.0"
   }
 }

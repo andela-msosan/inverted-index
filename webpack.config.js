@@ -1,24 +1,24 @@
-var webpack = require("webpack");
+const webpack = require('webpack');
 
 module.exports = {
-  entry: "./jasmine/spec/inverted-index-test.js",
+  entry: './jasmine/spec/inverted-index-test.js',
   output: {
-    filename: "bundle.js"
+    filename: '.jasmine/spec/bundle.js'
   },
   module: {
     loaders: [
       {
-        loader: "babel-loader",
+        loader: 'babel-loader',
         test: /\.js$/,
         exclude: /node_modules/,
         query: {
-          presets: "es2015"
+          presets: 'es2015'
         }
       }
     ]
   },
   resolve: {
-    extensions: ["", ".js", ".es6", ".json"]
+    extensions: ['', '.js', '.es6', '.json']
   },
   plugins: [
     // Avoid publishing files when compilation fails

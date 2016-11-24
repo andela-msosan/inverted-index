@@ -7,6 +7,9 @@
     "mocha": true,
     "jasmine": true
   },
+  "globals": {
+    "require": true
+  },
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,
