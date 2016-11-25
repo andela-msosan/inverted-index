@@ -23,7 +23,7 @@ const bookTwo = [
 ];
 
 describe('Inverted Index', () => {
-  let inverted = new InvertedIndex();
+  const inverted = new InvertedIndex();
   inverted.createIndex(book, 'file-one');
   inverted.createIndex(bookTwo, 'file-two');
 
