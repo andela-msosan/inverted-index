@@ -1,14 +1,31 @@
+body {
+  font-size: 100%;
+  margin-bottom: 70px;
+}
+
 .nav-wrapper {
   padding-left: 50px;
+  position: fixed;
 }
 
 footer {
   text-align: center;
-  position: absolute;
   bottom:0;
   width:100%;
+  position: fixed;
 }
 
 #upload {
   width: 50%;
+}
+
+td, th, i {
+  color: red;
+}
+
+#toast-container {
+  bottom: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  left:30%;  
 }

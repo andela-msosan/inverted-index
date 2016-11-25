@@ -1,11 +1,11 @@
-
 const gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   spawn = require('child_process').spawn,
   webpack = require('webpack-stream'),
   fs = require('fs'),
   browserify = require('browserify'),
-  connect = require('gulp-connect');
+  connect = require('gulp-connect'),
+  webpackConfig = require('./webpack.config.js');
 
 const paths = {
   jsFiles: ['./src/inverted-index.js'],
@@ -67,8 +67,8 @@ gulp.task('testReload', () => {
 });
 
 gulp.task('webpack', () => {
-  return gulp.src('./jasmine/spec/inverted-index-test.js')
-  .pipe(webpack(require('./webpack.config.js')))
+  gulp.src('./jasmine/spec/inverted-index-test.js')
+  .pipe(webpack(webpackConfig))
   .pipe(gulp.dest('./jasmine/spec/'));
 });
 

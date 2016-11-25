@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Inverted Indez</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body ng-app = "myApp">
   <header>
     <nav>
       <div class="nav-wrapper">
@@ -17,13 +18,12 @@
     </nav>
   </header>
 
-  <section>
+  <section ng-controller="mainController">
     <div class="row">
       <form>
       <div class="input-field right">
-        <input id="search" type="search">
-        <label for="search"><i class="material-icons">search</i></label>
-        <i class="material-icons">close</i>
+        <input id="search" type="search" ng-model="searchWord">
+        <button class = "btn" ng-click="searchIndex(searchWord)">search</button>
       </div>
       </form>
     </div>
@@ -34,14 +34,32 @@
           <div class="btn">
             <span>Upload</span>
           </div>
-          <input type="file" multiple>
+          <input id="file-input" type="file">
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text" placeholder="Upload file(s)"><br>
           </div>
-        </div>
       </form>
-      <p class="btn right">Create Index</p>
-    </div>
+      <div id="toast-container"></div>
+</div>
+
+      <div class="btn right" ng-click="createIndex()">Create Index</div>
+      </div>
+      </div>
+
+    <table class="striped container" ng-show="showTable">
+      </thead>
+      <tr>
+        <th style="color: red">Words</th>
+        <th style="color: red" ng-repeat="items in count">Document {{ items + 1}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="(key, values) in myIndex">
+        <td style="color: red">{{ key }}</td>
+        <td style="color: red" ng-repeat="number in count"><span ng-if="values.includes(number)"><i class="material-icons">done</i></span></td>
+      </tr>
+      </tbody>
+    </table>
   </section>
 
   <footer>
@@ -50,7 +68,9 @@
     </nav>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  <script type="text/javascript" src="../src/inverted-index.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>

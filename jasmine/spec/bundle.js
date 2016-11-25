@@ -1,3 +1,4 @@
+/* eslint-disable */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -9,7 +10,7 @@
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
 
-/******/ 		// Create a new module (and put it into the cache)
+/******/ 		// Create a new module (and put it into the cache)/
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
@@ -81,8 +82,8 @@
 
 	  describe('Search Index', function () {
 	    it('should return an arrray of objects indexes of the searched words', function () {
-	      expect(inverted.searchIndex('of')).toEqual([[0, 1]]);
-	      expect(inverted.searchIndex('alice powerful')).toEqual([[0], [1]]);
+	      expect(inverted.searchIndex('of')).toEqual({ of: [0, 1] });
+	      expect(inverted.searchIndex('alice powerful')).toEqual({ alice: [0], powerful: [1] });
 	    });
 	  });
 	});
@@ -201,13 +202,11 @@
 	    value: function searchIndex(word) {
 	      var _this2 = this;
 
-	      var result = [];
+	      var result = {};
 	      var cleanWord = this.getToken(word);
 	      cleanWord.forEach(function (text) {
 	        if (_this2.indexes.hasOwnProperty(text)) {
-	          result.push(_this2.indexes[text]);
-	        } else {
-	          return 'No result found';
+	          result[text] = _this2.indexes[text];
 	        }
 	      });
 	      return result;
