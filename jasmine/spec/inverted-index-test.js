@@ -23,7 +23,7 @@ const bookTwo = [
 ];
 
 describe('Inverted Index', () => {
-  const inverted = new InvertedIndex();
+  let inverted = new InvertedIndex();
   inverted.createIndex(book, 'file-one');
   inverted.createIndex(bookTwo, 'file-two');
 
@@ -44,6 +44,7 @@ describe('Inverted Index', () => {
     });
 
     it('should check that index maps the string to the correct filename', () => {
+      inverted = new InvertedIndex();
       inverted.createIndex(book, 'file-one');
       inverted.createIndex(bookTwo, 'file-two');
       expect(typeof (inverted.getIndex())['file-one']).toBe('object');
