@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: './jasmine/spec/inverted-index-test.js',
   output: {
-    filename: '.jasmine/spec/bundle.js'
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
