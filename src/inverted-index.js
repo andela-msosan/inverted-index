@@ -47,26 +47,31 @@ class InvertedIndex {
 
     /**
      * createIndex
-     * @param {JSON} fileContent Uploaded json file content
-     * @return {Object} words in file with thier index
+     * @param {String} fileContent Name of the uploaded file.
+     * @param {Array} fileName Uploaded json file content
+     * @return {null} no return value
      */
-  createIndex(fileContent) {
+  createIndex(fileContent, fileName) {
     if (this.isValidJson(fileContent)) {
-      fileContent.forEach((doc, docIndex) => {
-        const newString = `${doc.title} ${doc.text}`;
-        const tokenArray = this.getToken(newString);
-        tokenArray.forEach((token) => {
-          if (token in this.indexes) {
-            if (this.indexes[token].indexOf(docIndex) === -1) {
-              this.indexes[token].push(docIndex);
+      if (!(this.indexes[fileName])) {
+        this.indexes[fileName] = {};
+        fileContent.forEach((doc, docIndex) => {
+          const newString = `${doc.title} ${doc.text}`;
+          const tokenArray = this.getToken(newString);
+          tokenArray.forEach((token) => {
+            if (this.indexes[fileName][token] === undefined) {
+              this.indexes[fileName][token] = [];
+              this.indexes[fileName][token].push(docIndex);
+            } else if (this.indexes[fileName][token] &&
+                this.indexes[fileName][token].indexOf(docIndex) === -1) {
+              this.indexes[fileName][token].push(docIndex);
             }
-          } else {
-            this.indexes[token] = [docIndex];
-          }
+          });
         });
-      });
+      }
     }
   }
+
 
     /**
      * getIndex
@@ -79,15 +84,15 @@ class InvertedIndex {
     /**
      * searchIndex
      * @param {String} word Word to be searched in the index
-     * @return {Array} description
+     * @param {String} fileName The filename to search for words
+     * @return {Object} Words and their indexes
      */
-  searchIndex(word) {
+  searchIndex(word, fileName = null) {
     const result = {};
     const cleanWord = this.getToken(word);
     cleanWord.forEach((text) => {
-      if (this.indexes.hasOwnProperty(text)
-         ) {
-        result[text] = this.indexes[text];
+      if (this.indexes[fileName].hasOwnProperty(text)) {
+        result[text] = this.indexes[fileName][text];
       }
     });
     return result;
