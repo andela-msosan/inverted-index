@@ -15,18 +15,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/inverted-index.js',
-      'jasmine/spec/inverted-index-test.js'
+      'src/inverted-bundled.js',
+      'jasmine/spec/bundle.js'
     ],
-
-    coverageReporter: {
-      type: 'lcov',
-      dir: 'coverage/'
-    },
-
-    // plugins: ['karma-coverage', 'karma-coveralls',
-    //   'karma-babel-preprocessor', 'karma-chrome-launcher',
-    //   'karma-jasmine'],
 
 
     // list of files to exclude
@@ -37,18 +28,18 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/inverted-index.js': ['coverage']
+      // 'src/inverted-bundled.js': 'coverage'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage', 'coveralls'],
+    reporters: ['progress'],
 
 
     // web server port
-    port: 9878,
+    port: 9876,
 
 
     // enable / disable colors in the output (reporters and logs)
@@ -61,13 +52,13 @@ module.exports = function (config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    // browsers: ['Chrome'],
-    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'],
+    browsers: ['Chrome'],
+
     // Custom launchers for travis.
     customLaunchers: {
       Chrome_travis_ci: {
@@ -78,16 +69,16 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
   };
 
-  // if (process.env.TRAVIS) {
-  //   configuration.browsers = ['Chrome_travis_ci'];
-  // }
+  if (process.env.TRAVIS) {
+    configuration.browsers = ['Chrome_travis_ci'];
+  }
 
   config.set(configuration);
 };

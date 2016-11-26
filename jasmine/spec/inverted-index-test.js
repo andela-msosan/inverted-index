@@ -10,27 +10,13 @@ const book = [
   }
 ];
 
-const bookTwo = [
-  {
-    title: 'About Jasmine',
-    text: 'Jasmine is a name of a person as well as Javascript testing framework'
-  },
-
-  {
-    title: 'The Trials of Brother Jero',
-    text: 'A lovely book written by Nobel Prize winner, Professor Wole Soyinka'
-  }
-];
-
 describe('Inverted Index', () => {
   const inverted = new InvertedIndex();
-  inverted.createIndex(book, 'file-one');
-  inverted.createIndex(bookTwo, 'file-two');
+  inverted.createIndex(book);
 
   describe('Read Book Data', () => {
     it('should check that uploaded file content is a valid json file', () => {
       expect(inverted.isValidJson(book)).toBeTruthy();
-      expect(inverted.isValidJson(bookTwo)).toBeTruthy();
     });
 
     it('should read json file and assert it is not empty', () => {
@@ -42,17 +28,15 @@ describe('Inverted Index', () => {
     it('should verify that index has been created', () => {
       expect(Object.keys(inverted.indexes).length).toBeGreaterThan(0);
     });
-
-    it('should check that index maps the string to the correct filename', () => {
-      expect(typeof (inverted.getIndex())).toBe('object');
+    it('should check that index maps the string to the correct objects in json array', () => {
+      expect(inverted.getIndex().alice).toEqual([0]);
     });
   });
 
-
   describe('Search Index', () => {
     it('should return an arrray of objects indexes of the searched words', () => {
-      expect(inverted.searchIndex('of', 'file-two')).toEqual({ of: [0, 1] });
-      expect(inverted.searchIndex('alice powerful', 'file-one')).toEqual({ alice: [0], powerful: [1] });
+      expect(inverted.searchIndex('of')).toEqual({ of: [0, 1] });
+      expect(inverted.searchIndex('alice powerful')).toEqual({ alice: [0], powerful: [1] });
     });
   });
 });
