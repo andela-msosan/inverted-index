@@ -1,6 +1,5 @@
 const gulp = require('gulp'),
   connect = require('gulp-connect'),
-  eslint = require('gulp-eslint'),
   spawn = require('child_process').spawn;
 
 const paths = {
@@ -11,15 +10,6 @@ const paths = {
   testFiles: 'jasmine/spec/inverted-index-test.js',
   specRunner: 'jasmine/specRunner.html'
 };
-
-// lint
-gulp.task('lint', () => {
-  gulp.src(paths.jsFiles)
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
-});
-
 
 // serve
 gulp.task('serve', () => {
