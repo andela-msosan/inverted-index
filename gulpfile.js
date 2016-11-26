@@ -1,7 +1,7 @@
 const gulp = require('gulp'),
   connect = require('gulp-connect'),
-  spawn = require('child_process').spawn,
-  eslint = require('gulp-eslint');
+  eslint = require('gulp-eslint'),
+  spawn = require('child_process').spawn;
 
 const paths = {
   jsFiles: ['./src/inverted-index.js'],
