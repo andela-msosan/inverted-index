@@ -66,17 +66,4 @@ gulp.task('testReload', () => {
     .pipe(connect.reload());
 });
 
-gulp.task('webpack', () => {
-  gulp.src('./jasmine/spec/inverted-index-test.js')
-  .pipe(webpack(webpackConfig))
-  .pipe(gulp.dest('./jasmine/spec/'));
-});
-
-gulp.task('babelify', () => {
-  browserify('src/inverted-index.js')
-  .transform('babelify', { presets: ['es2015'] })
-  .bundle()
-  .pipe(fs.createWriteStream('src/inverted-bundled.js'));
-});
-
 gulp.task('default', ['reloadServer', 'testWatch', 'testReload', 'serve', 'watch']);
