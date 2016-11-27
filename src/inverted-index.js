@@ -97,7 +97,7 @@ class InvertedIndex {
      */
   searchIndex(word) {
     const result = {};
-    if (typeof word === 'object') {
+    if (Array.isArray(word)) {
       word = word.join(',').split(',').join(' ');
     }
     const cleanWord = this.getToken(word);
