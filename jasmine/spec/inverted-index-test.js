@@ -73,15 +73,4 @@ describe('Inverted Index', () => {
       .toEqual({ powerful: [1], wonderland: [0], into: [0], a: [0, 1], seek: [1] });
     });
   });
-
-  describe('Invalid Entries', () => {
-    it('should not create index for invalid json format', () => {
-      expect(notinverted.getIndex()).toEqual('Invalid Format');
-    });
-
-    it('should return a message if a wrong argument is passed in', () => {
-      const invert = new InvertedIndex();
-      expect(invert.getIndex(invert.createIndex(['this is an array']))).toBe('Invalid Format');
-    });
-  });
 });

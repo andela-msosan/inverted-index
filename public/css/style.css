@@ -1,11 +1,13 @@
-body {
-  font-size: 100%;
-  margin-bottom: 70px;
-}
-
 .nav-wrapper {
   padding-left: 50px;
   position: fixed;
+}
+nav {
+  background: maroon;
+}
+
+.btn {
+  background: darkslategray;
 }
 
 footer {

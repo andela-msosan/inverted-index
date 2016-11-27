@@ -16,12 +16,12 @@ angular.module('myApp', [])
       const userFileType = fileLoaded.type;
       const isValidType = Object.is(userFileType, jsonFileType);
       if (!isValidType) {
-        Materialize.toast('Invalid File Type!', 1000);
+        $scope.message('Invalid File Type!');
       } else {
         const readFile = new FileReader();
         readFile.onload = () => {
           const fileContent = JSON.parse(readFile.result);
-          Materialize.toast('File Uploaded!', 1000);
+          $scope.message('File Uploaded!');
           $scope.$apply(() => {
             $scope.fileContent = fileContent;
           });
@@ -29,6 +29,10 @@ angular.module('myApp', [])
         readFile.readAsText(fileLoaded);
       }
     });
+
+    $scope.message = (message) => {
+      Materialize.toast(message, 1000);
+    }
 
     /**
      * Checks if the content passed is Valid
@@ -48,14 +52,14 @@ angular.module('myApp', [])
      */
     $scope.createIndex = () => {
       if (!$scope.fileContent) {
-        Materialize.toast('Upload a Valid File!', 1000);
+        $scope.message('Upload a Valid File!', 1000);
         $scope.showTable = false;
         return false;
       } else {
         myInverted.createIndex($scope.fileContent);
         $scope.myIndex = myInverted.getIndex();
         if (!(myInverted.isValidJson($scope.fileContent)) || $scope.checkValid($scope.myIndex)) {
-          Materialize.toast('Please check your file!', 1000);
+          $scope.message('Please check your file!', 1000);
         } else {
           $scope.getCount();
           $scope.showTable = true;
@@ -83,11 +87,11 @@ angular.module('myApp', [])
      */
     $scope.searchIndex = (searchWord) => {
       if ($scope.myIndex === null) {
-        Materialize.toast('Upload a file and create Index', 1000);
+        $scope.message('Upload a file and create Index');
         return false;
       }
       if ((searchWord === '') || (searchWord === undefined)) {
-        Materialize.toast('Enter words to search!', 1000);
+        $scope.message('Enter words to search!');
       }
       $scope.myIndex = myInverted.searchIndex(searchWord);
       $scope.getCount();
