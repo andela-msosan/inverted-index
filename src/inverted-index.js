@@ -69,12 +69,6 @@ class InvertedIndex {
   }
 
     /**
-     * checkInvalid
-     * @param {Object} createdIndex The created indexes from file
-     * @return {Boolean} True if the index is invalid and false if not
-     */
-
-    /**
      * getIndex
      * @return {Object} An object of each word and their indexex
      */

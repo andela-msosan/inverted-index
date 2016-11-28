@@ -37,8 +37,8 @@ angular.module('myApp', [])
     /**
      * Checks if the content passed is Valid
      * @function checkValid
-     * @param {Object} content Content of the file
-     * @return {Boolean} True if valid and false if not
+     * @param {Object} content Created file index
+     * @return {Boolean} True if not valid
      */
     $scope.checkValid = (content) => {
       if (content.hasOwnProperty(undefined)) {
@@ -52,14 +52,14 @@ angular.module('myApp', [])
      */
     $scope.createIndex = () => {
       if (!$scope.fileContent) {
-        $scope.message('Upload a Valid File!', 1000);
+        $scope.message('Upload a Valid File!');
         $scope.showTable = false;
         return false;
       } else {
         myInverted.createIndex($scope.fileContent);
         $scope.myIndex = myInverted.getIndex();
         if (!(myInverted.isValidJson($scope.fileContent)) || $scope.checkValid($scope.myIndex)) {
-          $scope.message('Please check your file!', 1000);
+          $scope.message('Please check your file!');
         } else {
           $scope.getCount();
           $scope.showTable = true;
@@ -94,6 +94,9 @@ angular.module('myApp', [])
         $scope.message('Enter words to search!');
       }
       $scope.myIndex = myInverted.searchIndex(searchWord);
+      if (Object.keys($scope.myIndex).length === 0) {
+        $scope.message('No result found');
+      }
       $scope.getCount();
       $scope.showTable = true;
     };
