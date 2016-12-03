@@ -87,6 +87,7 @@ class InvertedIndex {
 
   /**
    * getIndex
+   * @param {string} filename The filename of the index to get
    * @return {Object} An object of each word and their indexex
    */
   getIndex(filename) {

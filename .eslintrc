@@ -21,6 +21,7 @@
     "arrow-body-style": ["error", "as-needed"],
     "comma-dangle": 0,
     "no-undef": 0,
+    "no-plusplus": 0,
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
