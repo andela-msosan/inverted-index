@@ -12,11 +12,11 @@
     <title>Inverted Index</title>
   </head>
   <body ng-app = "myApp">
-    <nav class="navbar navbar-default">
-    <div class="container-fluid">
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">
-          <p> Inverted Index </p>
+          <p id="invert"> Inverted Index </p>
         </a>
       </div>
     </div>
@@ -25,8 +25,29 @@
     <div class="container" ng-controller="mainController">
       <div class="row">
         <div class="col-lg-5">
+          <div class="about">
+            <h4>About</h4>
+            <p class="text-justify">An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
+              Inverted index object that takes a JSON array of text objects and creates an index from the array. The index allows a user to search for text blocks in the 
+              array that contain a specified collection of words.</p>
+            <h4>How It Works</h4>
+            <ul>
+              <li>Creating an Index</li>
+                <ol>
+                  <li>Upload your JSON file.</l1>
+                  <li>Select a file to create it's index.</li>
+                  <li>Click 'create index' button.</li>
+                </ol>
+              <li>Searching an Index</li>
+                <ol>
+                  <li>Select a file whose Index has been created already.</l1>
+                  <li>Enter your search word(s).</li>
+                  <li>CLick on the 'search' button.</li>
+                </ol>
+            </ul>
+          </div><br>
           <div class="form-group">
-            <label for="file-input" class="btn btn-default btn-file">Upload
+            <label for="file-input" class="btn btn-default btn-file btn-info">Upload
               <input type="file" id="file-input" multiple  accept="application/json">
             </label>
             <p class="help-block">Select a file to upload.</p>
@@ -38,7 +59,7 @@
               <option ng-repeat="title in titles">{{title}}</option>
             </select>
           </div><br>
-            <button class="btn" ng-click="createIndex()">Create Index</button>
+            <button class="btn btn-info" ng-click="createIndex()">Create Index</button>
         </div>
 
         <div class="col-lg-7">
@@ -51,7 +72,7 @@
             <div class="form-group">
               <input ng-model="query" type="text" class="form-control" placeholder="Search Word">
             </div>
-              <button type="submit" class="btn btn-default" ng-click=searchIndex(query)>Search</button>
+              <button type="submit" class="btn btn-info" ng-click=searchIndex(query)>Search</button>
           </form>
         </div>
           <table class = "table table-striped" ng-show ="showTable">

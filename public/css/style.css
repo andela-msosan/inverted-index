@@ -1,6 +1,19 @@
+body {
+  padding-top: 70px;
+  background: lightgray;
+}
 .btn-file {
     position: relative;
     overflow: hidden;
+}
+h4 {
+  color: cadetblue;
+}
+#invert{
+  color: white
+}
+.navbar {
+  background: cadetblue;
 }
 .btn-file input[type=file] {
     position: absolute;
@@ -13,19 +26,9 @@
     filter: alpha(opacity=0);
     opacity: 0;
     outline: none;
-    background: white;
     cursor: inherit;
     display: block;
 }
-
-.footer {
-  text-align: center;
-  bottom:0;
-  width:100%;
-  position: fixed;
-}
-
-
-td, th {
-  color: red;
-}
+.navbar-default {
+  border: none
+  }
