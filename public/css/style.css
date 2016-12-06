@@ -2,19 +2,24 @@ body {
   padding-top: 70px;
   background: lightgray;
 }
+
 .btn-file {
     position: relative;
     overflow: hidden;
 }
+
 h4 {
   color: cadetblue;
 }
+
 #invert{
   color: white
 }
+
 .navbar {
   background: cadetblue;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -29,6 +34,7 @@ h4 {
     cursor: inherit;
     display: block;
 }
+
 .navbar-default {
   border: none
   }

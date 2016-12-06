@@ -24,10 +24,9 @@ angular.module('myApp', ['toastr'])
                 $scope.uploadedFiles[file.name] = fileContent;
                 $scope.titles.push(file.name);
                 $scope.filesCount[file.name] = fileContent.length;
-                toastr.success('file Uploaded');
+                toastr.success('Your file has been uploaded', 'File Uploaded');
               } catch (err) {
-                toastr.error('check your file');
-                return false;
+                toastr.error('Check your file', 'Invalid JSON File');
               }
             });
           };
@@ -37,7 +36,7 @@ angular.module('myApp', ['toastr'])
 
 
     /**
-     * Checks if the created indices does not have valid value
+     * Checks if the created indices has an invalid value
      * @function checkInvalid
      * @param {Object} content Created file indeces
      * @return {Boolean} True if not valid
@@ -56,7 +55,7 @@ angular.module('myApp', ['toastr'])
     $scope.createIndex = () => {
       const selected = document.getElementById('selected').value;
       if (selected === 'Select a file to create index') {
-        toastr.error('Upload and/or Select a file');
+        toastr.error('Upload and/or select a file', 'No File Selected');
         return false;
       }
       if (selected) {
@@ -100,25 +99,25 @@ angular.module('myApp', ['toastr'])
     $scope.searchIndex = (query) => {
         // const selected = document.getElementById('selected').value;
       if ($scope.myIndex === null) {
-        toastr.error('Upload a file and create Index');
+        toastr.error('Upload a file and create Index', 'No Index Created');
         return false;
       }
       if ((query === '') || (query === undefined)) {
-        toastr.error('Enter words to search!');
+        toastr.error('Enter word(s) to search!', 'No Search Parameter');
         $scope.showTable = false;
         return false;
       }
       const searched = document.getElementById('searched').value;
       if (searched === 'Select a file to search') {
-        toastr.error('Select file to search');
-        showTable = false;
+        toastr.error('Select file to search', 'No File Selected');
+        $scope.showTable = false;
         return false;
       }
       if (searched) {
         $scope.lengths = $scope.range($scope.filesCount[searched]);
         $scope.myIndex = myInverted.searchIndex(query, searched);
         if (Object.keys($scope.myIndex).length === 0) {
-          toastr.error('search result not found');
+          toastr.error('Search word(s) not in file index', 'No Search Result');
           $scope.showTable = false;
           return false;
         }

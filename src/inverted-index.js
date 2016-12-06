@@ -79,9 +79,9 @@ class InvertedIndex {
         });
       });
       this.setIndex(fileName, indices);
-      return 'created';
+      return 'Index created';
     }
-    return 'not created';
+    return 'Index not created';
   }
 
 
