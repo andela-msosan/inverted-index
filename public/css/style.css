@@ -1,33 +1,40 @@
-.nav-wrapper {
-  padding-left: 50px;
-  position: fixed;
-}
-nav {
-  background: maroon;
+body {
+  padding-top: 70px;
+  background: lightgray;
 }
 
-.btn {
-  background: darkslategray;
+.btn-file {
+    position: relative;
+    overflow: hidden;
 }
 
-footer {
-  text-align: center;
-  bottom:0;
-  width:100%;
-  position: fixed;
+h4 {
+  color: cadetblue;
 }
 
-#upload {
-  width: 50%;
+#invert{
+  color: white
 }
 
-td, th, i {
-  color: red;
+.navbar {
+  background: cadetblue;
 }
 
-#toast-container {
-  bottom: auto !important;
-  right: auto !important;
-  bottom: 10%;
-  left:30%;  
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
 }
+
+.navbar-default {
+  border: none
+  }

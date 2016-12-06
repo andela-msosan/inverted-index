@@ -11,15 +11,11 @@ Inverted index object that takes a JSON array of text objects and creates an ind
 * Run `npm install` to install all dependencies.
 * To run test, run `npm test`
 * To use inverted index, run `gulp` and go to `localhost://3000`
-* Upload your file, here is a [sample](https://github.com/andela-msosan/inverted-index/blob/develop/jasmine/books.json) file.
-* Click on *create index* to get an index of your file.
-* To search the index, enter the word(s) you want to search in the search box.
-* Click on *search* to see your result, the result table is empty if the searched word(s) is not in the index created.
+* Upload your file(s), here is a [sample](https://github.com/andela-msosan/inverted-index/blob/develop/jasmine/books.json) file.
+* Select a file from the uploaded files and click on *create index* to get an index of the selected file.
+* To search the created index of a file, select file and enter the word(s) you want to search in the search box.
+* Click on *search* to see your result, the result table does not display if the searched word(s) is not in the index created.
 
-
-
-## Limitations
-  This version does not support multiple files upload.
 
 ## Technologies and Services
 Written in Javascript es6 syntax and nodejs on the backend, with the followinng:

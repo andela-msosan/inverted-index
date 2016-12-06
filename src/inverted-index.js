@@ -8,7 +8,18 @@ class InvertedIndex {
    * @constructor
    */
   constructor() {
-    this.indexes = {};
+    this.fileIndices = {};
+  }
+
+  /**
+   * Sets the indices of all indexed files
+   * @function setIndex
+   * @param {String} filename Name of the indexed file
+   * @param {Object} indices Indices of the file
+   * @return {object} Indexed file name and it's indices'
+   */
+  setIndex(filename, indices) {
+    this.fileIndices[filename] = indices;
   }
 
   /**
@@ -45,52 +56,59 @@ class InvertedIndex {
       .filter(item => Boolean(item));
   }
 
-    /**
-     * createIndex
-     * @param {JSON} fileContent Uploaded json file content
-     * @return {Object} words in file with thier index
-     */
-  createIndex(fileContent) {
+  /**
+   * createIndex
+   * @param {String} fileContent Name of the uploaded file.
+   * @param {Array} fileName Uploaded json file content
+   * @return {null} no return value
+   */
+  createIndex(fileContent, fileName) {
+    const indices = {};
     if (this.isValidJson(fileContent)) {
       fileContent.forEach((doc, docIndex) => {
         const newString = `${doc.title} ${doc.text}`;
         const tokenArray = this.getToken(newString);
         tokenArray.forEach((token) => {
-          if (token in this.indexes) {
-            if (this.indexes[token].indexOf(docIndex) === -1) {
-              this.indexes[token].push(docIndex);
+          if (token in indices) {
+            if (indices[token].indexOf(docIndex) === -1) {
+              indices[token].push(docIndex);
             }
           } else {
-            this.indexes[token] = [docIndex];
+            indices[token] = [docIndex];
           }
         });
       });
+      this.setIndex(fileName, indices);
+      return 'Index created';
     }
+    return 'Index not created';
   }
 
-    /**
-     * getIndex
-     * @return {Object} An object of each word and their indexex
-     */
-  getIndex() {
-    return this.indexes;
+
+  /**
+   * getIndex
+   * @param {string} filename The filename of the index to get
+   * @return {Object} An object of each word and their indexex
+   */
+  getIndex(filename) {
+    return this.fileIndices[filename];
   }
 
-    /**
-     * searchIndex
-     * @param {String} word Word to be searched in the index
-     * @return {Array} description
-     */
-  searchIndex(word) {
+  /**
+   * searchIndex
+   * @param {String} word Word to be searched in the index
+   * @param {String} fileName The filename to search for words
+   * @return {Object} Words and their indices
+   */
+  searchIndex(word, fileName) {
     const result = {};
     if (Array.isArray(word)) {
       word = word.join(',').split(',').join(' ');
     }
     const cleanWord = this.getToken(word);
     cleanWord.forEach((text) => {
-      if (this.indexes.hasOwnProperty(text)
-         ) {
-        result[text] = this.indexes[text];
+      if (this.fileIndices[fileName].hasOwnProperty(text)) {
+        result[text] = this.fileIndices[fileName][text];
       }
     });
     return result;
