@@ -13,7 +13,9 @@ class InvertedIndex {
 
   /**
    * Set Index
+   * 
    * It sets the indices of all indexed files
+   * 
    * @param {String} filename Name of the indexed file
    * @param {Object} indices Indices of the file
    * @return {object} Indexed file name and it's indices'
@@ -24,7 +26,9 @@ class InvertedIndex {
 
   /**
    * Valid json
+   * 
    * It checks if a json file is valid
+   * 
    * @param {Object} jsonArray Array of json objects
    * @return {Boolean} True or false if json file is valid
    */
@@ -46,7 +50,9 @@ class InvertedIndex {
 
   /**
    * Get token
+   * 
    * It splits sentence into an array of words
+   * 
    * @param {String} text Strings of texts
    * @return {Array} An array of splitted texts
    */
@@ -59,7 +65,9 @@ class InvertedIndex {
 
   /**
    * Create Index
+   * 
    * It creates Indices for files
+   * 
    * @param {String} fileContent Name of the uploaded file.
    * @param {Array} fileName Uploaded json file content
    * @return {null} no return value
@@ -92,7 +100,9 @@ class InvertedIndex {
 
   /**
    * Get Index
+   * 
    * It gets the index of a specified filename
+   * 
    * @param {string} filename The filename of the index to get
    * @return {Object} An object of each word and their indexex
    */
@@ -102,7 +112,9 @@ class InvertedIndex {
 
   /**
    * Search Index
+   * 
    * It searches the index of files for specified terms
+   * 
    * @param {String} word Word to be searched in the index
    * @param {String} fileName The filename to search for words
    * @return {Object} Words and their indices
@@ -114,27 +126,22 @@ class InvertedIndex {
     }
     const cleanWord = this.getToken(word);
     if (fileName === null) {
-      Object.keys(this.fileIndices).forEach((fileName) => {
-        result[fileName] = {};
-        result[fileName]['index'] = {};
-        result[fileName]['length'] = this.fileIndices[fileName]['length'];
+      Object.keys(this.fileIndices).forEach((file) => {
+        result[file] = { index: {}, length: this.fileIndices[file]['length'] };
         cleanWord.forEach((text) => {
-          if (this.fileIndices[fileName]['index'].hasOwnProperty(text)) {
-            result[fileName]['index'][text] = this.fileIndices[fileName]['index'][text];
+          if (this.fileIndices[file]['index'].hasOwnProperty(text)) {
+            result[file]['index'][text] = this.fileIndices[file]['index'][text];
           }
         });
       });
     } else {
-      result[fileName] = {};
-      result[fileName]['index'] = {};
-      result[fileName]['length'] = this.fileIndices[fileName]['length'];
+      result[fileName] = { index: {}, length: this.fileIndices[fileName]['length'] };
       cleanWord.forEach((text) => {
         if (this.fileIndices[fileName]['index'].hasOwnProperty(text)) {
           result[fileName]['index'][text] = this.fileIndices[fileName]['index'][text];
         }
       });
     }
-    // console.log(result);
     return result;
   }
 

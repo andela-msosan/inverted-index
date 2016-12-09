@@ -40,7 +40,9 @@ angular.module('myApp', ['toastr'])
 
     /**
      * Check Invalid
+     * 
      * It checks if the created indices has an invalid value
+     * 
      * @param {Object} content Created file indeces
      * @return {Boolean} True if not valid
      */
@@ -52,7 +54,9 @@ angular.module('myApp', ['toastr'])
 
     /**
      * Create Index
+     * 
      * It creates index of the uploaded file content and displays it in a table
+     * 
      * @function createIndex
      * @return {null} Displays a table of created indices;
      */
@@ -83,7 +87,9 @@ angular.module('myApp', ['toastr'])
 
     /**
      * Range
+     * 
      * It gets the number of books/elements in the uploaded file
+     * 
      * @param {number} lengths length of documents in loaded files
      * @return {Arrray} Array created from the file length
      */
@@ -97,7 +103,9 @@ angular.module('myApp', ['toastr'])
 
     /**
      * Search Index
+     * 
      * Searches through the created indexes for user's input
+     * 
      * @param {text} query Texts entered to be searched.
      * @return {null} Displays table of serached results.
      */
