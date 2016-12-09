@@ -1,13 +1,14 @@
 angular.module('myApp', ['toastr'])
   .controller('mainController', ($scope, toastr) => {
     $scope.fileContent = null;
+    $scope.myIndex = null;
     $scope.filesCount = [];
     $scope.indexedFiles = null;
     const myInverted = new InvertedIndex();
     $scope.showTable = false;
     $scope.showSearch = false;
     $scope.titles = [];
-    $scope.title = false;
+    $scope.tableTitle = false;
     $scope.uploadedFiles = [];
     $scope.selected = null;
 
@@ -108,7 +109,7 @@ angular.module('myApp', ['toastr'])
       if ((query === '') || (query === undefined)) {
         toastr.error('Enter word(s) to search!', 'No Search Parameter');
         $scope.showTable = false;
-        $scope.title = false;
+        $scope.tableTitle = false;
         return false;
       }
       const searched = document.getElementById('searched').value;
@@ -116,20 +117,25 @@ angular.module('myApp', ['toastr'])
       if (searched === 'Select a file to search') {
         toastr.error('Select file to search', 'No File Selected');
         $scope.showTable = false;
-        $scope.title = false;
-        return false;
-      }
-      if (searched === 'All files') {
+        $scope.tableTitle = false;
+      } else if (searched === 'All files') {
         $scope.myIndex = myInverted.searchIndex(query);
-        $scope.showTable = true;
-        $scope.title = true;
-      }
-      if (searched) {
+        Object.keys($scope.myIndex).forEach((file) => {
+          if (Object.keys($scope.myIndex[file]['index']).length === 0) {
+            toastr.error(`Search word(s) not in index of ${file}`, 'No Search Result');
+            $scope.showTable = false;
+            $scope.tableTitle = false;
+          }
+          $scope.showTable = true;
+          $scope.tableTitle = true;
+        });
+      } else
+       {
         $scope.myIndex = myInverted.searchIndex(query, searched);
-        if (Object.keys($scope.myIndex).length === 0) {
-          toastr.error('Search word(s) not in file index', 'No Search Result');
+        if (Object.keys($scope.myIndex[searched]['index']).length === 0) {
+          toastr.error(`Search word(s) not in index of ${searched}`, 'No Search Result');
           $scope.showTable = false;
-          $scope.title = false;
+          $scope.tableTitle = false;
           return false;
         }
         $scope.showTable = true;
