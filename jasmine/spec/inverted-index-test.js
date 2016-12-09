@@ -12,7 +12,7 @@ const book = [
 
 describe('Inverted Index', () => {
   const inverted = new InvertedIndex();
-  inverted.createIndex(book, 'file-1');
+  inverted.createIndex(book, 'file1');
 
   describe('Inverted Index classes', () => {
     it('should check that it the class has a createIndex method', () => {
@@ -45,26 +45,30 @@ describe('Inverted Index', () => {
 
   describe('Populate Index', () => {
     it('should verify that index has been created', () => {
-      expect(Object.keys(inverted.getIndex('file-1')).length).toBeGreaterThan(0);
+      expect(Object.keys(inverted.getIndex('file1')).length).toBeGreaterThan(0);
     });
     it('should check that index maps the string to the correct objects in json array', () => {
-      expect(inverted.getIndex('file-1').alice).toEqual([0]);
+      expect(inverted.getIndex('file1').index.alice).toEqual([0]);
     });
   });
 
   describe('Search Index', () => {
     it('should return an arrray of objects indexes of the searched words', () => {
-      expect(inverted.searchIndex('of', 'file-1')).toEqual({ of: [0, 1] });
-      expect(inverted.searchIndex('alice powerful', 'file-1')).toEqual({ alice: [0], powerful: [1] });
+      expect(inverted.searchIndex('of', 'file1')).toEqual({ file1: { index: { of: [0, 1] }, length: 2 } });
+      expect(inverted.searchIndex('alice powerful', 'file1')).toEqual({ file1: { index: { alice: [0], powerful: [1] }, length: 2 } });
     });
     it('should return search result if an array is passed in as search term', () => {
-      expect(inverted.searchIndex(['alice', 'in', 'ring'], 'file-1')).toEqual({ alice: [0], in: [0], ring: [1] });
-      expect(inverted.searchIndex(['moyosore', 'in', 'amity'], 'file-1')).toEqual({ in: [0] });
+      expect(inverted.searchIndex(['alice', 'in'], 'file1')).toEqual({ file1: { index: { alice: [0], in: [0] }, length: 2 } });
+      expect(inverted.searchIndex(['moyosore', 'in', 'amity'], 'file1')).toEqual({ file1: { index: { in: [0] }, length: 2 } });
     });
 
     it('should return search result if a multidimensional array is passed in as search term', () => {
-      expect(inverted.searchIndex(['powerful', ['wonderland', ['into', 'a']], 'seek'], 'file-1'))
-      .toEqual({ powerful: [1], wonderland: [0], into: [0], a: [0, 1], seek: [1] });
+      expect(inverted.searchIndex(['powerful', ['wonderland', ['into', 'a']], 'seek'], 'file1')).toEqual({ file1: { index: { powerful: [1], wonderland: [0], into: [0], a: [0, 1], seek: [1] }, length: 2 } });
+    });
+
+    it('should return search result if a file name is not specified', () => {
+      expect(inverted.searchIndex(['alice', 'in'])).toEqual({ file1: { index: { alice: [0], in: [0] }, length: 2 } });
+      expect(inverted.searchIndex('moyosore in amity')).toEqual({ file1: { index: { in: [0] }, length: 2 } });
     });
   });
 });
