@@ -6,8 +6,11 @@ angular.module('myApp', ['toastr'])
     $scope.indexedFiles = null;
     const myInverted = new InvertedIndex();
     $scope.showTable = false;
+    $scope.showSearch = false;
     $scope.titles = [];
+    $scope.tableTitle = false;
     $scope.uploadedFiles = [];
+    $scope.selected = null;
 
     /**
      * Reads content of uploaded files
@@ -36,8 +39,8 @@ angular.module('myApp', ['toastr'])
 
 
     /**
-     * Checks if the created indices has an invalid value
-     * @function checkInvalid
+     * Check Invalid
+     * It checks if the created indices has an invalid value
      * @param {Object} content Created file indeces
      * @return {Boolean} True if not valid
      */
@@ -48,12 +51,15 @@ angular.module('myApp', ['toastr'])
     };
 
     /**
-     * Creates index of the uploaded file content and displays it in a table
+     * Create Index
+     * It creates index of the uploaded file content and displays it in a table
      * @function createIndex
      * @return {null} Displays a table of created indices;
      */
     $scope.createIndex = () => {
+      $scope.myIndex = {};
       const selected = document.getElementById('selected').value;
+      $scope.selected = selected;
       if (selected === 'Select a file to create index') {
         toastr.error('Upload and/or select a file', 'No File Selected');
         return false;
@@ -65,20 +71,19 @@ angular.module('myApp', ['toastr'])
           return false;
         }
         myInverted.createIndex(data, selected);
-        $scope.myIndex = myInverted.getIndex(selected);
+        $scope.myIndex[selected] = myInverted.getIndex(selected);
         if ($scope.checkInvalid($scope.myIndex)) {
           toastr.error('Check your file', 'Invalid File Format');
           return false;
         }
-        $scope.lengths = $scope.range($scope.filesCount[selected]);
         $scope.showTable = true;
         $scope.indexedFiles = myInverted.fileIndices;
       }
     };
 
     /**
-     * Gets the number of books/elements in the uploaded file
-     * @function range
+     * Range
+     * It gets the number of books/elements in the uploaded file
      * @param {number} lengths length of documents in loaded files
      * @return {Arrray} Array created from the file length
      */
@@ -91,13 +96,12 @@ angular.module('myApp', ['toastr'])
     };
 
     /**
+     * Search Index
      * Searches through the created indexes for user's input
-     * @function searchIndex
      * @param {text} query Texts entered to be searched.
      * @return {null} Displays table of serached results.
      */
     $scope.searchIndex = (query) => {
-        // const selected = document.getElementById('selected').value;
       if ($scope.myIndex === null) {
         toastr.error('Upload a file and create Index', 'No Index Created');
         return false;
@@ -105,20 +109,33 @@ angular.module('myApp', ['toastr'])
       if ((query === '') || (query === undefined)) {
         toastr.error('Enter word(s) to search!', 'No Search Parameter');
         $scope.showTable = false;
+        $scope.tableTitle = false;
         return false;
       }
       const searched = document.getElementById('searched').value;
+      $scope.selected = searched;
       if (searched === 'Select a file to search') {
         toastr.error('Select file to search', 'No File Selected');
         $scope.showTable = false;
-        return false;
-      }
-      if (searched) {
-        $scope.lengths = $scope.range($scope.filesCount[searched]);
+        $scope.tableTitle = false;
+      } else if (searched === 'All files') {
+        $scope.myIndex = myInverted.searchIndex(query);
+        Object.keys($scope.myIndex).forEach((file) => {
+          if (Object.keys($scope.myIndex[file]['index']).length === 0) {
+            toastr.error(`Search word(s) not in index of ${file}`, 'No Search Result');
+            $scope.showTable = false;
+            $scope.tableTitle = false;
+          }
+          $scope.showTable = true;
+          $scope.tableTitle = true;
+        });
+      } else
+       {
         $scope.myIndex = myInverted.searchIndex(query, searched);
-        if (Object.keys($scope.myIndex).length === 0) {
-          toastr.error('Search word(s) not in file index', 'No Search Result');
+        if (Object.keys($scope.myIndex[searched]['index']).length === 0) {
+          toastr.error(`Search word(s) not in index of ${searched}`, 'No Search Result');
           $scope.showTable = false;
+          $scope.tableTitle = false;
           return false;
         }
         $scope.showTable = true;

@@ -64,22 +64,25 @@ class InvertedIndex {
    * @param {Array} fileName Uploaded json file content
    * @return {null} no return value
    */
-  createIndex(fileContent, fileName = null) {
+  createIndex(fileContent, fileName) {
     const indices = {};
+    indices['index'] = {};
     if (this.isValidJson(fileContent)) {
       fileContent.forEach((doc, docIndex) => {
         const newString = `${doc.title} ${doc.text}`;
         const tokenArray = this.getToken(newString);
         tokenArray.forEach((token) => {
-          if (token in indices) {
-            if (indices[token].indexOf(docIndex) === -1) {
-              indices[token].push(docIndex);
+          if (token in indices['index']) {
+            if (indices['index'][token].indexOf(docIndex) === -1) {
+              indices['index'][token].push(docIndex);
             }
           } else {
-            indices[token] = [docIndex];
+            indices['index'][token] = [docIndex];
           }
         });
       });
+      indices['length'] = fileContent.length;
+
       this.setIndex(fileName, indices);
       return 'Index created';
     }
@@ -104,28 +107,34 @@ class InvertedIndex {
    * @param {String} fileName The filename to search for words
    * @return {Object} Words and their indices
    */
-  searchIndex(word, fileName) {
+  searchIndex(word, fileName = null) {
     const result = {};
     if (Array.isArray(word)) {
       word = word.join(',').split(',').join(' ');
     }
     const cleanWord = this.getToken(word);
-    if (fileName === undefined) {
-      Object.keys(this.fileIndices).forEach((file) => {
-        result[file] = {};
+    if (fileName === null) {
+      Object.keys(this.fileIndices).forEach((fileName) => {
+        result[fileName] = {};
+        result[fileName]['index'] = {};
+        result[fileName]['length'] = this.fileIndices[fileName]['length'];
         cleanWord.forEach((text) => {
-          if (this.fileIndices[file].hasOwnProperty(text)) {
-            result[file][text] = this.fileIndices[file][text];
+          if (this.fileIndices[fileName]['index'].hasOwnProperty(text)) {
+            result[fileName]['index'][text] = this.fileIndices[fileName]['index'][text];
           }
         });
       });
     } else {
+      result[fileName] = {};
+      result[fileName]['index'] = {};
+      result[fileName]['length'] = this.fileIndices[fileName]['length'];
       cleanWord.forEach((text) => {
-        if (this.fileIndices[fileName].hasOwnProperty(text)) {
-          result[text] = this.fileIndices[fileName][text];
+        if (this.fileIndices[fileName]['index'].hasOwnProperty(text)) {
+          result[fileName]['index'][text] = this.fileIndices[fileName]['index'][text];
         }
       });
     }
+    // console.log(result);
     return result;
   }
 
