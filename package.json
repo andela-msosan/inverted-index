@@ -4,7 +4,8 @@
   "description": "inverted index",
   "main": "index.js",
   "scripts": {
-    "test": "karma start --single-run"
+    "test": "karma start --single-run",
+    "start": "gulp serve"
   },
   "repository": {
     "type": "git",
