@@ -21,9 +21,10 @@
     "arrow-body-style": ["error", "as-needed"],
     "comma-dangle": 0,
     "no-undef": 0,
+    "dot-notation": 0,
     "no-plusplus": 0,
     "curly": ["error", "multi-line"],
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "no-shadow": 0,
     "valid-jsdoc": ["error", {
       "requireReturn": true,
       "requireReturnType": true,
