@@ -73,8 +73,7 @@ class InvertedIndex {
    * @return {null} no return value
    */
   createIndex(fileContent, fileName) {
-    const indices = {};
-    indices['index'] = {};
+    const indices = { index: {} };
     if (this.isValidJson(fileContent)) {
       fileContent.forEach((doc, docIndex) => {
         const newString = `${doc.title} ${doc.text}`;
