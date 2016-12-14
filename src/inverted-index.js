@@ -110,6 +110,26 @@ class InvertedIndex {
   }
 
   /**
+   * Search
+   * 
+   * It searches the term in a file
+   * 
+   * @param {String} term Word to be searched in the index
+   * @param {String} file The file to search
+   * @return {Object} Words and their indices
+   */
+  search(term, file) {
+    let result = {};
+    result = { index: {}, length: this.fileIndices[file]['length'] };
+    term.forEach((text) => {
+      if (this.fileIndices[file]['index'].hasOwnProperty(text)) {
+        result['index'][text] = this.fileIndices[file]['index'][text];
+      }
+    });
+    return result;
+  }
+
+  /**
    * Search Index
    * 
    * It searches the index of files for specified terms
@@ -125,21 +145,11 @@ class InvertedIndex {
     }
     const cleanWord = this.getToken(word);
     if (fileName === null) {
-      Object.keys(this.fileIndices).forEach((file) => {
-        result[file] = { index: {}, length: this.fileIndices[file]['length'] };
-        cleanWord.forEach((text) => {
-          if (this.fileIndices[file]['index'].hasOwnProperty(text)) {
-            result[file]['index'][text] = this.fileIndices[file]['index'][text];
-          }
-        });
+      Object.keys(this.fileIndices).forEach((files) => {
+        result[files] = this.search(cleanWord, files);
       });
     } else {
-      result[fileName] = { index: {}, length: this.fileIndices[fileName]['length'] };
-      cleanWord.forEach((text) => {
-        if (this.fileIndices[fileName]['index'].hasOwnProperty(text)) {
-          result[fileName]['index'][text] = this.fileIndices[fileName]['index'][text];
-        }
-      });
+      result[fileName] = this.search(cleanWord, fileName);
     }
     return result;
   }
